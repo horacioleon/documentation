@@ -5850,11 +5850,13 @@
       "ContentEncoding": {
         "description": "HTTP header used to compress the media-type.",
         "enum": [
+          "identity",
           "gzip",
           "deflate"
         ],
         "type": "string",
         "x-enum-varnames": [
+          "IDENTITY",
           "GZIP",
           "DEFLATE"
         ]
@@ -8362,48 +8364,6 @@
         },
         "type": "object"
       },
-      "HTTPLog": {
-        "description": "Structured log message.",
-        "items": {
-          "additionalProperties": {
-            "description": "Additional log attributes.",
-            "type": "string"
-          },
-          "description": "Logs that are sent over HTTP.",
-          "properties": {
-            "ddsource": {
-              "description": "The integration name associated with your log: the technology from which the log originated.\nWhen it matches an integration name, Datadog automatically installs the corresponding parsers and facets.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
-              "example": "nginx",
-              "type": "string"
-            },
-            "ddtags": {
-              "description": "Tags associated with your logs.",
-              "example": "env:staging,version:5.1",
-              "type": "string"
-            },
-            "hostname": {
-              "description": "The name of the originating host of the log.",
-              "example": "i-012345678",
-              "type": "string"
-            },
-            "message": {
-              "description": "The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes)\nof your log. By default, Datadog ingests the value of the message attribute as the body of the log entry.\nThat value is then highlighted and displayed in the Logstream, where it is indexed for full text search.",
-              "example": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
-              "type": "string"
-            },
-            "service": {
-              "description": "The name of the application or service generating the log events.\nIt is used to switch from Logs to APM, so make sure you define the same value when you use both products.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
-              "example": "payment",
-              "type": "string"
-            }
-          },
-          "required": [
-            "message"
-          ],
-          "type": "object"
-        },
-        "type": "array"
-      },
       "HTTPLogError": {
         "description": "List of errors.",
         "properties": {
@@ -8454,44 +8414,6 @@
             "type": "array"
           }
         },
-        "type": "object"
-      },
-      "HTTPLogItem": {
-        "additionalProperties": {
-          "description": "Additional log attributes.",
-          "type": "string"
-        },
-        "description": "Logs that are sent over HTTP.",
-        "properties": {
-          "ddsource": {
-            "description": "The integration name associated with your log: the technology from which the log originated.\nWhen it matches an integration name, Datadog automatically installs the corresponding parsers and facets.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
-            "example": "nginx",
-            "type": "string"
-          },
-          "ddtags": {
-            "description": "Tags associated with your logs.",
-            "example": "env:staging,version:5.1",
-            "type": "string"
-          },
-          "hostname": {
-            "description": "The name of the originating host of the log.",
-            "example": "i-012345678",
-            "type": "string"
-          },
-          "message": {
-            "description": "The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes)\nof your log. By default, Datadog ingests the value of the message attribute as the body of the log entry.\nThat value is then highlighted and displayed in the Logstream, where it is indexed for full text search.",
-            "example": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
-            "type": "string"
-          },
-          "service": {
-            "description": "The name of the application or service generating the log events.\nIt is used to switch from Logs to APM, so make sure you define the same value when you use both products.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
-            "example": "payment",
-            "type": "string"
-          }
-        },
-        "required": [
-          "message"
-        ],
         "type": "object"
       },
       "HourlyUsage": {
@@ -17176,6 +17098,86 @@
           }
         },
         "type": "object"
+      },
+      "JsonHTTPLog": {
+        "additionalProperties": {
+          "description": "Additional log attributes.",
+          "type": "string"
+        },
+        "description": "Logs that are sent over HTTP.",
+        "properties": {
+          "ddsource": {
+            "description": "The integration name associated with your log: the technology from which the log originated.\nWhen it matches an integration name, Datadog automatically installs the corresponding parsers and facets.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+            "example": "nginx",
+            "type": "string"
+          },
+          "ddtags": {
+            "description": "Tags associated with your logs.",
+            "example": "env:staging,version:5.1",
+            "type": "string"
+          },
+          "hostname": {
+            "description": "The name of the originating host of the log.",
+            "example": "i-012345678",
+            "type": "string"
+          },
+          "message": {
+            "description": "The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes)\nof your log. By default, Datadog ingests the value of the message attribute as the body of the log entry.\nThat value is then highlighted and displayed in the Logstream, where it is indexed for full text search.",
+            "example": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
+            "type": "string"
+          },
+          "service": {
+            "description": "The name of the application or service generating the log events.\nIt is used to switch from Logs to APM, so make sure you define the same value when you use both products.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+            "example": "payment",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "JsonHTTPLogs": {
+        "description": "Structured log message.",
+        "items": {
+          "additionalProperties": {
+            "description": "Additional log attributes.",
+            "type": "string"
+          },
+          "description": "Logs that are sent over HTTP.",
+          "properties": {
+            "ddsource": {
+              "description": "The integration name associated with your log: the technology from which the log originated.\nWhen it matches an integration name, Datadog automatically installs the corresponding parsers and facets.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+              "example": "nginx",
+              "type": "string"
+            },
+            "ddtags": {
+              "description": "Tags associated with your logs.",
+              "example": "env:staging,version:5.1",
+              "type": "string"
+            },
+            "hostname": {
+              "description": "The name of the originating host of the log.",
+              "example": "i-012345678",
+              "type": "string"
+            },
+            "message": {
+              "description": "The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes)\nof your log. By default, Datadog ingests the value of the message attribute as the body of the log entry.\nThat value is then highlighted and displayed in the Logstream, where it is indexed for full text search.",
+              "example": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
+              "type": "string"
+            },
+            "service": {
+              "description": "The name of the application or service generating the log events.\nIt is used to switch from Logs to APM, so make sure you define the same value when you use both products.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+              "example": "payment",
+              "type": "string"
+            }
+          },
+          "required": [
+            "message"
+          ],
+          "type": "object"
+        },
+        "type": "array"
       },
       "ListApplicationKeysResponse": {
         "description": "Response for a list of application keys.",
@@ -58463,11 +58465,13 @@
             "schema": {
               "description": "HTTP header used to compress the media-type.",
               "enum": [
+                "identity",
                 "gzip",
                 "deflate"
               ],
               "type": "string",
               "x-enum-varnames": [
+                "IDENTITY",
                 "GZIP",
                 "DEFLATE"
               ]
@@ -58493,10 +58497,18 @@
                   "summary": "Multi JSON Messages",
                   "value": [
                     {
-                      "message": "hello"
+                      "ddsource": "nginx",
+                      "ddtags": "env:staging,version:5.1",
+                      "hostname": "i-012345678",
+                      "message": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello",
+                      "service": "payment"
                     },
                     {
-                      "message": "world"
+                      "ddsource": "nginx",
+                      "ddtags": "env:staging,version:5.1",
+                      "hostname": "i-012345679",
+                      "message": "2019-11-19T14:37:58,995 INFO [process.name][20081] World",
+                      "service": "payment"
                     }
                   ]
                 },
@@ -58504,54 +58516,97 @@
                   "description": "Log attributes can be passed as `key:value` pairs in valid JSON messages.",
                   "summary": "Simple JSON Message",
                   "value": {
-                    "ddsource": "agent",
-                    "ddtags": "env:prod,user:joe.doe",
-                    "hostname": "fa1e1e739d95",
-                    "message": "hello world"
+                    "ddsource": "nginx",
+                    "ddtags": "env:staging,version:5.1",
+                    "hostname": "i-012345678",
+                    "message": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
+                    "service": "payment"
                   }
                 }
               },
               "schema": {
-                "description": "Structured log message.",
-                "items": {
-                  "additionalProperties": {
-                    "description": "Additional log attributes.",
-                    "type": "string"
+                "oneOf": [
+                  {
+                    "additionalProperties": {
+                      "description": "Additional log attributes.",
+                      "type": "string"
+                    },
+                    "description": "Logs that are sent over HTTP.",
+                    "properties": {
+                      "ddsource": {
+                        "description": "The integration name associated with your log: the technology from which the log originated.\nWhen it matches an integration name, Datadog automatically installs the corresponding parsers and facets.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+                        "example": "nginx",
+                        "type": "string"
+                      },
+                      "ddtags": {
+                        "description": "Tags associated with your logs.",
+                        "example": "env:staging,version:5.1",
+                        "type": "string"
+                      },
+                      "hostname": {
+                        "description": "The name of the originating host of the log.",
+                        "example": "i-012345678",
+                        "type": "string"
+                      },
+                      "message": {
+                        "description": "The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes)\nof your log. By default, Datadog ingests the value of the message attribute as the body of the log entry.\nThat value is then highlighted and displayed in the Logstream, where it is indexed for full text search.",
+                        "example": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
+                        "type": "string"
+                      },
+                      "service": {
+                        "description": "The name of the application or service generating the log events.\nIt is used to switch from Logs to APM, so make sure you define the same value when you use both products.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+                        "example": "payment",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ],
+                    "type": "object"
                   },
-                  "description": "Logs that are sent over HTTP.",
-                  "properties": {
-                    "ddsource": {
-                      "description": "The integration name associated with your log: the technology from which the log originated.\nWhen it matches an integration name, Datadog automatically installs the corresponding parsers and facets.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
-                      "example": "nginx",
-                      "type": "string"
+                  {
+                    "description": "Structured log message.",
+                    "items": {
+                      "additionalProperties": {
+                        "description": "Additional log attributes.",
+                        "type": "string"
+                      },
+                      "description": "Logs that are sent over HTTP.",
+                      "properties": {
+                        "ddsource": {
+                          "description": "The integration name associated with your log: the technology from which the log originated.\nWhen it matches an integration name, Datadog automatically installs the corresponding parsers and facets.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+                          "example": "nginx",
+                          "type": "string"
+                        },
+                        "ddtags": {
+                          "description": "Tags associated with your logs.",
+                          "example": "env:staging,version:5.1",
+                          "type": "string"
+                        },
+                        "hostname": {
+                          "description": "The name of the originating host of the log.",
+                          "example": "i-012345678",
+                          "type": "string"
+                        },
+                        "message": {
+                          "description": "The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes)\nof your log. By default, Datadog ingests the value of the message attribute as the body of the log entry.\nThat value is then highlighted and displayed in the Logstream, where it is indexed for full text search.",
+                          "example": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
+                          "type": "string"
+                        },
+                        "service": {
+                          "description": "The name of the application or service generating the log events.\nIt is used to switch from Logs to APM, so make sure you define the same value when you use both products.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
+                          "example": "payment",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message"
+                      ],
+                      "type": "object"
                     },
-                    "ddtags": {
-                      "description": "Tags associated with your logs.",
-                      "example": "env:staging,version:5.1",
-                      "type": "string"
-                    },
-                    "hostname": {
-                      "description": "The name of the originating host of the log.",
-                      "example": "i-012345678",
-                      "type": "string"
-                    },
-                    "message": {
-                      "description": "The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes)\nof your log. By default, Datadog ingests the value of the message attribute as the body of the log entry.\nThat value is then highlighted and displayed in the Logstream, where it is indexed for full text search.",
-                      "example": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World",
-                      "type": "string"
-                    },
-                    "service": {
-                      "description": "The name of the application or service generating the log events.\nIt is used to switch from Logs to APM, so make sure you define the same value when you use both products.\nSee [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).",
-                      "example": "payment",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
+                    "type": "array"
+                  }
+                ]
               }
             },
             "application/logplex-1": {
@@ -58559,12 +58614,12 @@
                 "multi-raw-message": {
                   "description": "Submit log messages.",
                   "summary": "Multi Logplex Messages",
-                  "value": "hello\nworld"
+                  "value": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello\n2019-11-19T14:37:58,995 INFO [process.name][20081] World"
                 },
                 "simple-logplex-message": {
                   "description": "Submit log string.",
                   "summary": "Simple Logplex Message",
-                  "value": "hello world"
+                  "value": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World"
                 }
               },
               "schema": {
@@ -58576,12 +58631,12 @@
                 "multi-raw-message": {
                   "description": "Submit log string.",
                   "summary": "Multi Raw Messages",
-                  "value": "hello\nworld\n"
+                  "value": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello\n2019-11-19T14:37:58,995 INFO [process.name][20081] World\n"
                 },
                 "simple-raw-message": {
                   "description": "Submit log string. Log attributes can be passed as query parameters in the URL. This enables the addition of tags or the source by using the `ddtags` and `ddsource` parameters: `?host=my-hostname&service=my-service&ddsource=my-source&ddtags=env:prod,user:my-user`.",
                   "summary": "Simple Raw Message",
-                  "value": "hello world"
+                  "value": "2019-11-19T14:37:58,995 INFO [process.name][20081] Hello World"
                 }
               },
               "schema": {
@@ -59514,7 +59569,7 @@
           "Logs"
         ],
         "x-codegen-request-body-name": "body",
-        "x-menu-order": 1,
+        "x-menu-order": 2,
         "x-undo": {
           "type": "safe"
         }
@@ -66057,7 +66112,7 @@
         "tags": [
           "Logs"
         ],
-        "x-menu-order": 3,
+        "x-menu-order": 4,
         "x-pagination": {
           "cursorParam": "page[cursor]",
           "cursorPath": "meta.page.after",
@@ -66424,7 +66479,7 @@
           "Logs"
         ],
         "x-codegen-request-body-name": "body",
-        "x-menu-order": 2,
+        "x-menu-order": 3,
         "x-pagination": {
           "cursorParam": "body.page.cursor",
           "cursorPath": "meta.page.after",
